@@ -1,0 +1,9 @@
+<h2>{{ esNuevaTarea ? 'Nueva': 'Editar' }}</h2>
+<form [formGroup]="formTarea" (ngSubmit)="guardar()">
+  <div>
+    <label for="nombre">Nombre</label>
+    <input type="text" formControlName="nombre">
+    <p *ngIf="formTarea.controls.nombre.invalid && formTarea.controls.nombre.dirty">El nombre es obligatorio</p>
+  </div>
+  <button type="submit" [disabled]="formTarea.invalid">Guardar</button>
+</form>
