@@ -17,12 +17,12 @@ export class TareaComponent implements OnInit {
   }
 
   eliminar(){
-    this.tareasService.deleteTarea(this.tarea);
+    this.tareasService.deleteTarea(this.tarea.id).subscribe();
   }
 
   actualizar(){
     const tareaActualizada = new Tarea (this.tarea.nombre, !this.tarea.completa, this.tarea.id);
-    this.tareasService.updateTarea(this.tarea, tareaActualizada);
+    this.tareasService.updateTarea(tareaActualizada).subscribe();
   }
 
   editar(){
