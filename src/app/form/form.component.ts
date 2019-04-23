@@ -37,15 +37,17 @@ export class FormComponent implements OnInit {
     console.log(nombreTarea);
 
     if(this.esNuevaTarea){
-      this.tareasService.addTarea(nombreTarea).subscribe((resp)=>{
-        console.log(resp);
+      this.tareasService.addTarea(nombreTarea).subscribe(()=>{
+        this.tareasService.actualizarVista();
       });
 
     } else {
       const tareaActualizada = new Tarea(nombreTarea, this.editarTarea.completa, this.editarTarea.id);
-      this.tareasService.updateTarea(tareaActualizada).subscribe();
+      this.tareasService.updateTarea(tareaActualizada).subscribe(()=>{
+        this.tareasService.actualizarVista();
+      });
     }
-    
+
     this.formTarea.reset();
     this.esNuevaTarea = true;
   }

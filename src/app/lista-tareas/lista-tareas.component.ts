@@ -15,9 +15,12 @@ export class ListaTareasComponent implements OnInit {
 
   ngOnInit() {
     this.inicializarTareas();
+    this.tareasService.datosCambiados.subscribe(() => {
+      this.inicializarTareas();
+    });
   }
 
-  inicializarTareas(){
+  inicializarTareas() {
     this.tareasService.getTareas().subscribe(tareas => {
       this.tareas = tareas;
     });

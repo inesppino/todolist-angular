@@ -10,7 +10,8 @@ import { map } from 'rxjs/operators';
 export class TareasService {
 
   private URL: string = "https://todo-list-603ba.firebaseio.com/tasks"
-  sendTarea = new EventEmitter();
+  sendTarea = new EventEmitter<Tarea>();
+  datosCambiados = new EventEmitter<boolean>();
 
   constructor(private http: HttpClient) { }
 
@@ -35,12 +36,16 @@ export class TareasService {
   }
 
   updateTarea(tarea: Tarea): Observable<any> {
-    const tareaActualizada = { nombre: tarea.nombre, completada: tarea.completa};
+    const tareaActualizada = { nombre: tarea.nombre, completada: tarea.completa };
     return this.http.put(`${this.URL}/${tarea.id}.json`, tareaActualizada);
   }
 
   sendTareaToEdit(tarea: Tarea): void {
     this.sendTarea.emit(tarea);
+  }
+
+  actualizarVista(): void {
+    this.datosCambiados.emit(true);
   }
 
   parseResponseToArray(resp): Array<Tarea> {
